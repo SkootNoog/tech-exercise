@@ -13,9 +13,6 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import datamodel.Recipe;
-import datamodel.Ingredient;
-import datamodel.Instruction;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -62,7 +59,7 @@ public class UtilDB {
 	      return resultList;
 	   }
 
-	   public static List<Recipe> listRecipe(String keyword) {
+	   public static List<Recipe> listRecipes(String keyword) {
 	      List<Recipe> resultList = new ArrayList<Recipe>();
 
 	      Session session = getSessionFactory().openSession();
@@ -90,12 +87,12 @@ public class UtilDB {
 	      return resultList;
 	   }
 
-	   public static void createRecipes(String name, String description) {
+	   public static void createRecipes(String name, String description, String ingredients, String instructions) {
 	      Session session = getSessionFactory().openSession();
 	      Transaction tx = null;
 	      try {
 	         tx = session.beginTransaction();
-	         session.save(new Recipe(name, description));
+	         session.save(new Recipe(name, description, ingredients, instructions));
 	         tx.commit();
 	      } catch (HibernateException e) {
 	         if (tx != null)
@@ -105,79 +102,4 @@ public class UtilDB {
 	         session.close();
 	      }
 	   }
-   
-   
-   //Ingredient
-   
-   
-   
-   //Instruction
-
-   public static List<EmployeeNegus> listEmployees() {
-      List<EmployeeNegus> resultList = new ArrayList<EmployeeNegus>();
-
-      Session session = getSessionFactory().openSession();
-      Transaction tx = null;  // each process needs transaction and commit the changes in DB.
-
-      try {
-         tx = session.beginTransaction();
-         List<?> employees = session.createQuery("FROM EmployeeNegus").list();
-         for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
-            EmployeeNegus employee = (EmployeeNegus) iterator.next();
-            resultList.add(employee);
-         }
-         tx.commit();
-      } catch (HibernateException e) {
-         if (tx != null)
-            tx.rollback();
-         e.printStackTrace();
-      } finally {
-         session.close();
-      }
-      return resultList;
-   }
-
-   public static List<EmployeeNegus> listEmployees(String keyword) {
-      List<EmployeeNegus> resultList = new ArrayList<EmployeeNegus>();
-
-      Session session = getSessionFactory().openSession();
-      Transaction tx = null;
-
-      try {
-         tx = session.beginTransaction();
-         System.out.println((EmployeeNegus)session.get(EmployeeNegus.class, 1)); // use "get" to fetch data
-        // Query q = session.createQuery("FROM Employee");
-         List<?> employees = session.createQuery("FROM EmployeeNegus").list();
-         for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
-            EmployeeNegus employee = (EmployeeNegus) iterator.next();
-            if (employee.getName().startsWith(keyword)) {
-               resultList.add(employee);
-            }
-         }
-         tx.commit();
-      } catch (HibernateException e) {
-         if (tx != null)
-            tx.rollback();
-         e.printStackTrace();
-      } finally {
-         session.close();
-      }
-      return resultList;
-   }
-
-   public static void createEmployees(String userName, String age) {
-      Session session = getSessionFactory().openSession();
-      Transaction tx = null;
-      try {
-         tx = session.beginTransaction();
-         session.save(new EmployeeNegus(userName, Integer.valueOf(age)));
-         tx.commit();
-      } catch (HibernateException e) {
-         if (tx != null)
-            tx.rollback();
-         e.printStackTrace();
-      } finally {
-         session.close();
-      }
-   }
 }

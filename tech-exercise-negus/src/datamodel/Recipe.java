@@ -1,12 +1,10 @@
 package datamodel;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,41 +21,45 @@ public class Recipe {
 
    @Id  // primary key
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "recipe_id") // specify the column name. Without it, it will use method name
-   private Integer recipe_id;
+   @Column(name = "id") // specify the column name. Without it, it will use method name
+   private Integer id;
 
-   @Column(name = "name")
+   @Column(name = "name", nullable = false, columnDefinition = "varchar(100)")
    private String name;
 
-   @Column(name = "description")
+   @Column(name = "description", columnDefinition = "varchar(10000)")
    private String description;
    
-   @OneToMany(mappedBy="recipe")
-   private List<Ingredient> ingredients;
+   @Column(name = "ingredients", columnDefinition = "varchar(10000)")
+   private String ingredients;
 
-   @OneToMany(mappedBy="recipe")
-   private List<Instruction> instructions;
+   @Column(name = "instructions", columnDefinition = "varchar(10000)")
+   private String instructions;
    
    public Recipe() {
    }
 
-   public Recipe(Integer id, String name, String description) {
-      this.recipe_id = id;
+   public Recipe(Integer id, String name, String description, String ingredients, String instructions) {
+      this.id = id;
       this.name = name;
       this.description = description;
+      this.ingredients = ingredients;
+      this.instructions = instructions;
    }
 
-   public Recipe(String name, String description) {
+   public Recipe(String name, String description, String ingredients, String instructions) {
       this.name = name;
       this.description = description;
+      this.ingredients = ingredients;
+      this.instructions = instructions;
    }
 
    public Integer getId() {
-      return recipe_id;
+      return id;
    }
 
    public void setId(Integer id) {
-      this.recipe_id = id;
+      this.id = id;
    }
 
    public String getName() {
@@ -76,24 +78,24 @@ public class Recipe {
       this.description = description;
    }
    
-   public List<Instruction> getInstruction(){
+   public String getInstructions(){
 	   return instructions;
    }
    
-   public void setInstructions(List<Instruction> instructions) {
+   public void setInstructions(String instructions) {
 	   this.instructions = instructions;
    }
    
-   public List<Ingredient> getIngredients(){
+   public String getIngredients(){
 	   return ingredients;
    }
    
-   public void setIngredients(List<Ingredient> ingredients) {
+   public void setIngredients(String ingredients) {
 	   this.ingredients = ingredients;
    }
 
    @Override
    public String toString() {
-      return "Recipe: " + this.recipe_id + ", " + this.name + ", " + this.description;
+      return "Recipe: " + this.id + ", " + this.name + ", " + this.description + ", " + this.ingredients + ", " +this.instructions;
    }
 }
