@@ -43,13 +43,13 @@ public class SearchRecipes extends HttpServlet {
       List<Recipe> recipes = UtilDB.listRecipes(keyword);
       
       for(Recipe recipe : recipes) {
-    	  out.println("Recipe Name: " + recipe.getName());
-    	  out.println("Recipe Description: " + recipe.getDesc());
-    	  out.println("Recipe Ingredients: " + recipe.getIngredients());
-    	  out.println("Recipe Instructions: " + recipe.getInstructions()+ "<br>");
+    	  out.println("<b>Recipe Name: </b>" + recipe.getName()+ "<br>");
+    	  out.println("<b>Recipe Description: </b>" + recipe.getDesc()+ "<br>");
+    	  out.println("<b>Recipe Ingredients: </b>" + recipe.getIngredients()+ "<br>");
+    	  out.println("<b>Recipe Instructions: </b>" + recipe.getInstructions()+ "<br>");
       }
       
-      out.println("<a href=/CookBook/SearchRecipes.html>Search Recipes</a> <br>");
+      out.println("<a href=/Cookbook/SearchRecipes.html>Search Recipes</a> <br>");
       out.println("</body></html>");
    }
 

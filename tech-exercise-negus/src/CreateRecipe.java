@@ -44,7 +44,7 @@ public class CreateRecipe extends HttpServlet {
 
             "</ul>\n");
 
-      out.println("<a href=/Cookbook/SearchRecipe.html>Search Recipes</a> <br>");
+      out.println("<a href=/Cookbook/SearchRecipes.html>Search Recipes</a> <br>");
       out.println("</body></html>");
    }
 

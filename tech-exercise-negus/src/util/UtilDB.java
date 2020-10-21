@@ -39,7 +39,7 @@ public class UtilDB {
 	      List<Recipe> resultList = new ArrayList<Recipe>();
 
 	      Session session = getSessionFactory().openSession();
-	      Transaction tx = null;  // each process needs transaction and commit the changes in DB.
+	      Transaction tx = null; 
 
 	      try {
 	         tx = session.beginTransaction();
@@ -72,7 +72,7 @@ public class UtilDB {
 	         List<?> recipes = session.createQuery("FROM Recipe").list();
 	         for (Iterator<?> iterator = recipes.iterator(); iterator.hasNext();) {
 	        	 Recipe recipe = (Recipe) iterator.next();
-	            if (recipe.getName().startsWith(keyword)) {
+	            if (recipe.getName().toLowerCase().contains(keyword) || recipe.getName().contains(keyword)) {
 	               resultList.add(recipe);
 	            }
 	         }
