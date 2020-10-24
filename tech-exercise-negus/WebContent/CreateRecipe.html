@@ -3,51 +3,54 @@
 <style>
 header {
     background-color:green;
-    color:white;
+    color:#ffaa00;
     text-align:center;
-    padding:5px;	 
+    padding:10px;
 }
 nav {
+	text-align:center;
     line-height:30px;
-    background-color:#eeeeee;
-    height:300px;
-    width:100px;
-    float:left;
-    padding:5px;	      
+    background-color:green;
+    height:700px;
+    width:200px;
+    float:left;     
+}
+body{
+	background-color:#ffaa00;
 }
 section {
-    width:350px;
-    float:left;
-    padding:10px;	 	 
+	background-color:#ffaa00;
+    float:left; 	 
 }
 footer {
+	height: 50px;
+	bottom: 0;
     background-color:green;
     color:white;
     clear:both;
     text-align:center;
-    padding:5px;	 	 
 }
 </style>
 </head>
 
 <body>
 <header>
-<h1> Create Recipe </h1>
+<h1> Skoot's Cookbook </h1>
 </header>
 
 <nav>
-<a href="/Cookbook/SearchRecipes.html">Search Recipes</a> <br>
+	<h2><a href="/Cookbook/SearchRecipes.html">Search Recipes</a></h2> <br>
 </nav>
 
 <section>
-	<h1>User Input</h1>
+	<h1>Enter Your Recipe</h1>
 	
 	<form action="CreateRecipe" method="POST">
 	
 		Recipe Name: <input type="text" name="name"> <br />
-		Recipe Description: <textarea name="description" rows="10" cols="100" placeholder="Write your recipe description here!"></textarea> <br />
-		Recipe Ingredients: <textarea name="ingredients" rows="10" cols="100" placeholder="Write your recipe ingredients here!"></textarea> <br />
-		Recipe Instructions: <textarea name="instructions" rows="10" cols="100" placeholder="Write your recipe instructions here!"></textarea> <br />
+		Recipe Description:<br><textarea name="description" rows="10" cols="100" placeholder="Write your recipe description here!"></textarea> <br />
+		Recipe Ingredients:<br><textarea name="ingredients" rows="10" cols="100" placeholder="Write your recipe ingredients here!"></textarea> <br />
+		Recipe Instructions:<br><textarea name="instructions" rows="10" cols="100" placeholder="Write your recipe instructions here!"></textarea> <br />
 		
 		<input type="submit" value="Submit" />
 	</form>
@@ -55,7 +58,8 @@ footer {
 </section>
 
 <footer>
-Copyright
+Cookbook by Scott Negus <br>
+2020
 </footer>
 </body>
 </html>

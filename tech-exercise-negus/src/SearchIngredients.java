@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import datamodel.Recipe;
 import util.UtilDB;
 
-@WebServlet("/SearchRecipes")
-public class SearchRecipes extends HttpServlet {
+@WebServlet("/SearchIngredients")
+public class SearchIngredients extends HttpServlet {
    private static final long serialVersionUID = 1L;
 
-   public SearchRecipes() {
+   public SearchIngredients() {
       super();
    }
 
@@ -36,7 +36,7 @@ public class SearchRecipes extends HttpServlet {
             "<body bgcolor=\"#f0f0f0\">\n" + //
             "<h1 align=\"center\">" + title + "</h1>\n");
       
-      List<Recipe> recipes = UtilDB.searchRecipes(keyword);
+      List<Recipe> recipes = UtilDB.searchIngredients(keyword);
       
       for(Recipe recipe : recipes) {
     	  out.println("<h2 style=\"text-align:center;\">" + recipe.getName()+ "</h2><br>");

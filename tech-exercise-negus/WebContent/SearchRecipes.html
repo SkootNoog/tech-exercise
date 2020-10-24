@@ -3,46 +3,58 @@
 <style>
 header {
     background-color:green;
-    color:white;
+    color:#ffaa00;
     text-align:center;
-    padding:5px;	 
+    padding:10px;
 }
 nav {
+	text-align:center;
     line-height:30px;
-    background-color:#eeeeee;
-    height:300px;
-    width:100px;
-    float:left;
-    padding:5px;	      
+    background-color:green;
+    height:700px;
+    width:200px;
+    float:left;     
+}
+body{
+	background-color:#ffaa00;
 }
 section {
-    width:350px;
-    float:left;
-    padding:10px;	 	 
+	background-color:#ffaa00;
+    float:left; 	 
 }
 footer {
+	height: 50px;
+	bottom: 0;
     background-color:green;
     color:white;
     clear:both;
     text-align:center;
-    padding:5px;	 	 
 }
 </style>
 </head>
 
 <body>
 <header>
-<h1> Search Recipes </h1>
+<h1> Skoot's Cookbook </h1>
 </header>
 
 <nav>
-<a href="/Cookbook/CreateRecipe.html">Create Recipe</a> <br>
+	<h2><a href="/Cookbook/CreateRecipe.html">Create Recipe</a></h2> <br>
 </nav>
 
 <section>
-	<h1>User Input</h1>
+	<h1>Search Recipes</h1>
 	
 	<form action="SearchRecipes" method="POST">
+	
+		Recipe Name: <input type="text" name="keyword"> <br />
+		
+		<input type="submit" value="Search" />
+	</form>
+	
+	<h1>Search Ingredients</h1>
+	
+	<form action="SearchIngredients" method="POST">
 	
 		Recipe Name: <input type="text" name="keyword"> <br />
 		
@@ -52,7 +64,8 @@ footer {
 </section>
 
 <footer>
-Copyright
+Cookbook by Scott Negus <br>
+2020
 </footer>
 </body>
 </html>

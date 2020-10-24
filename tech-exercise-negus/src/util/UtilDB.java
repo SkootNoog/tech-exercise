@@ -5,16 +5,11 @@ package util;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
-
 import datamodel.Recipe;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -33,33 +28,41 @@ public class UtilDB {
       sessionFactory = configuration.buildSessionFactory(builder.build());
       return sessionFactory;
    }
+
+   // Search Recipe Names
+   public static List<Recipe> searchRecipes(String keyword) {
+      List<Recipe> resultList = new ArrayList<Recipe>();
+
+      Session session = getSessionFactory().openSession();
+      Transaction tx = null;
+
+      try {
+         tx = session.beginTransaction();
+         
+         System.out.println((Recipe)session.get(Recipe.class, 1)); 
+         List<?> recipes = session.createQuery("FROM Recipe").list();
+         
+         for (Iterator<?> iterator = recipes.iterator(); iterator.hasNext();) {
+        	 Recipe recipe = (Recipe) iterator.next();
+            if (recipe.getName().toLowerCase().contains(keyword) || recipe.getName().contains(keyword)) {
+               resultList.add(recipe);
+            }
+         }
+         tx.commit();
+         
+      } catch (HibernateException e) {
+         if (tx != null)
+            tx.rollback();
+         e.printStackTrace();
+      } finally {
+         session.close();
+      }
+      
+      return resultList;
+   }
    
-   //Recipe
-   public static List<Recipe> listRecipes() {
-	      List<Recipe> resultList = new ArrayList<Recipe>();
-
-	      Session session = getSessionFactory().openSession();
-	      Transaction tx = null; 
-
-	      try {
-	         tx = session.beginTransaction();
-	         List<?> recipes = session.createQuery("FROM Recipe").list();
-	         for (Iterator<?> iterator = recipes.iterator(); iterator.hasNext();) {
-	        	 Recipe recipe = (Recipe) iterator.next();
-	            resultList.add(recipe);
-	         }
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx != null)
-	            tx.rollback();
-	         e.printStackTrace();
-	      } finally {
-	         session.close();
-	      }
-	      return resultList;
-	   }
-
-	   public static List<Recipe> listRecipes(String keyword) {
+   //Search Recipe Ingredients
+   public static List<Recipe> searchIngredients(String keyword) {
 	      List<Recipe> resultList = new ArrayList<Recipe>();
 
 	      Session session = getSessionFactory().openSession();
@@ -67,16 +70,18 @@ public class UtilDB {
 
 	      try {
 	         tx = session.beginTransaction();
-	         System.out.println((Recipe)session.get(Recipe.class, 1)); // use "get" to fetch data
-	        // Query q = session.createQuery("FROM Recipe");
+	         
+	         System.out.println((Recipe)session.get(Recipe.class, 1)); 
 	         List<?> recipes = session.createQuery("FROM Recipe").list();
+	         
 	         for (Iterator<?> iterator = recipes.iterator(); iterator.hasNext();) {
 	        	 Recipe recipe = (Recipe) iterator.next();
-	            if (recipe.getName().toLowerCase().contains(keyword) || recipe.getName().contains(keyword)) {
+	            if (recipe.getIngredients().toLowerCase().contains(keyword) || recipe.getIngredients().contains(keyword)) {
 	               resultList.add(recipe);
 	            }
 	         }
 	         tx.commit();
+	         
 	      } catch (HibernateException e) {
 	         if (tx != null)
 	            tx.rollback();
@@ -84,22 +89,24 @@ public class UtilDB {
 	      } finally {
 	         session.close();
 	      }
+	      
 	      return resultList;
 	   }
 
-	   public static void createRecipes(String name, String description, String ingredients, String instructions) {
-	      Session session = getSessionFactory().openSession();
-	      Transaction tx = null;
-	      try {
-	         tx = session.beginTransaction();
-	         session.save(new Recipe(name, description, ingredients, instructions));
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx != null)
-	            tx.rollback();
-	         e.printStackTrace();
-	      } finally {
-	         session.close();
-	      }
-	   }
+   //Create Recipes
+   public static void createRecipes(String name, String description, String ingredients, String instructions) {
+      Session session = getSessionFactory().openSession();
+      Transaction tx = null;
+      try {
+         tx = session.beginTransaction();
+         session.save(new Recipe(name, description, ingredients, instructions));
+         tx.commit();
+      } catch (HibernateException e) {
+         if (tx != null)
+            tx.rollback();
+         e.printStackTrace();
+      } finally {
+         session.close();
+      }
+   }
 }
